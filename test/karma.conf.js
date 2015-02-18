@@ -31,6 +31,8 @@ module.exports = function(config) {
       'bower_components/q/q.js',
       'bower_components/esprima/esprima.js',
       'bower_components/ace-builds/src-noconflict/ace.js',
+      'bower_components/ace-builds/src-noconflict/mode-javascript.js',
+      'bower_components/ace-builds/src-noconflict/theme-chrome.js',
       'bower_components/angular-ui-ace/ui-ace.js',
       'bower_components/syntactic/syntactic.js',
       'bower_components/angular-mocks/angular-mocks.js',

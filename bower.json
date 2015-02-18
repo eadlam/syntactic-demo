@@ -18,7 +18,11 @@
   },
   "overrides": {
     "ace-builds": {
-      "main": "src-noconflict/ace.js"
+      "main": [
+        "src-noconflict/ace.js", 
+        "src-noconflict/mode-javascript.js",
+        "src-noconflict/theme-chrome.js"
+        ]
     }
   },
   "devDependencies": {
