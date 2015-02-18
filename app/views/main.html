@@ -1,0 +1,62 @@
+<div class="row">
+  <div class="col-lg-6">
+    <h5>Template</h5>
+
+    <div ng-model="templateText"
+         ui-ace="{theme: 'chrome',
+                  mode: 'javascript',
+                  onChange: templateChanged}"></div>
+
+  </div>
+
+<div class="col-lg-6">
+  <h5>Students Code</h5>
+  <div ng-model="studentText"
+         ui-ace="{theme: 'chrome',
+                  mode: 'javascript',
+                  onChange: studentChanged}"></div>
+</div>
+</div>
+
+<br>
+
+<div class="row">
+  <div id="notes" class="col-lg-6">
+  <div class="row well">
+    <div class="col-lg-6">
+      <h5>Whitelist</h5>
+      <div ng-repeat="(type, values) in data.whitelist">
+        <h6>{{type}}</h6>
+        <ul>
+          <li ng-repeat="value in values">{{value}}</li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <h5>Blacklist</h5>
+      <div ng-repeat="(type, values) in data.blacklist">
+        <h6>{{type}}</h6>
+        <ul>
+          <li ng-repeat="value in values">{{value}}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div id="notes" class="col-lg-6">
+  Status: {{data.passing === true ? "OK" : "Fail"}}
+  <div ng-repeat="hint in data.hints.blacklist track by $index" 
+       ng-if="hint" class="alert {{hint.type}}" role="alert">
+    {{hint.hint}}
+  </div>
+  <div ng-repeat="hint in data.hints.whitelist track by $index" 
+       ng-if="hint" class="alert {{hint.type}}" role="alert">
+    {{hint.hint}}
+  </div>
+  <div ng-repeat="hint in data.hints.template track by $index" 
+       ng-if="hint" class="alert {{hint.type}}" role="alert">
+    {{hint.hint}}
+  </div>
+  </div>
+</div>
+
