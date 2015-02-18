@@ -27,36 +27,51 @@ angular.module('khanApp')
 
 
 
-    $scope.templateText = 'var test = function(n){\n' +
-                      '  // Start with a for loop\n' +
-                      '  for(var i = 0; i < n; i++){\n' +
-                      '    var j = 3;\n' +
+    $scope.templateText = 'var countUp = function(n){\n' +
+                      '  // Start with a for loop. Make sure you add one to n\n' +
+                      '  for(var i = 0; i < n + 1; i++){\n' +
                       '    // There should be an if statement in the for loop\n' +
-                      '    if(true){\n' +
+                      '    if(i === n){\n' +
                       '    // Log a message to the console\n' +
-                      '      console.log(true);\n' +
+                      '      console.log("Almost there ...");\n' +
                       '    }\n' +
+                      '    // Log the count\n' +
+                      '    console.log(i);\n' +
                       '  }\n' +
-                      '};';
+                      '};\n'+
+                      '// Dont forget to call the function\n' +
+                      'countUp(5);';
 
 
 
 
-    $scope.studentText = 'var test = function(n){\n' +
-                      '  for(var i = 0; i < n; i++){\n' +
-                      '    var j = 3;\n' +
-                      '    if(true){\n' +
-                      '      console.log("Hello!");\n' +
+    $scope.studentText = 'var countUp = function(n){\n' +
+                      '  for(var i = 0; i < n + 1; i++){\n' +
+                      '    if(i === n){\n' +
+                      '      console.log("Almost there ...");\n' +
                       '    }\n' +
+                      '    console.log(i);\n' +
                       '  }\n' +
-                      '};';
+                      '};\n'+
+                      'countUp(5);';
     
     var spec = syntactic.specify({
         whitelist:$scope.data.whitelist,
         blacklist:$scope.data.blacklist
     });
 
+
+    var text = 'while(true){};'
+    syntactic.specify({
+            whitelist:{Keyword: ['for']},
+            blacklist:{Keyword: ['while']}
+        }).verify(text).then(function(res){
+            console.log(res);
+      });
+
+
     var template = syntactic.outline($scope.templateText);
+    // console.log(template);
 
     $scope.templateChanged = function(){
         template = syntactic.outline($scope.templateText);
@@ -73,6 +88,8 @@ angular.module('khanApp')
             blacklist:[]
         };
 
+        // console.log(templateResults);
+
         for(var hint in templateResults.hints){
             $scope.data.hints.template.push({
                 type:'alert-warning',
@@ -86,7 +103,7 @@ angular.module('khanApp')
         // response object returned by the syntactic api.
         spec.verify($scope.studentText).then(function(res){
             // If the whitelist/blacklist test fails
-            console.log(res);
+            // console.log(res);
             if(res.status === false){
                 // update the passing status
                 $scope.data.passing = false;
@@ -122,7 +139,7 @@ angular.module('khanApp')
                         }
                         whitelistHints.push(hint);
                         $scope.data.hints.whitelist = whitelistHints;
-                        console.log(whitelistHints);
+                        // console.log(whitelistHints);
                     }
                 }
 
